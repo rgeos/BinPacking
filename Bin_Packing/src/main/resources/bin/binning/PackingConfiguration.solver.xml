@@ -1,0 +1,18 @@
+<solver xStreamId="1">
+  <scanAnnotatedClasses xStreamId="2"/>
+  <scoreDirectorFactory xStreamId="3"/>
+  <termination xStreamId="4">
+    <millisecondsSpentLimit>0</millisecondsSpentLimit>
+    <secondsSpentLimit>30</secondsSpentLimit>
+    <minutesSpentLimit>0</minutesSpentLimit>
+    <hoursSpentLimit>0</hoursSpentLimit>
+    <daysSpentLimit>0</daysSpentLimit>
+  </termination>
+  <constructionHeuristic xStreamId="5">
+    <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
+    <entitySorterManner>DECREASING_DIFFICULTY_IF_AVAILABLE</entitySorterManner>
+  </constructionHeuristic>
+  <localSearch xStreamId="6">
+    <localSearchType>LATE_ACCEPTANCE</localSearchType>
+  </localSearch>
+</solver>

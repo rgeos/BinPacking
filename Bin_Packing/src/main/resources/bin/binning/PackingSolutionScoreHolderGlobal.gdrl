@@ -1,0 +1,3 @@
+package bin.binning;
+
+global org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScoreHolder scoreHolder;

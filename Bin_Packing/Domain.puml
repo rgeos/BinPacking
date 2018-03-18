@@ -1,0 +1,77 @@
+@startuml
+
+class Bin {
+    .. properties ..
+    - long id
+    - int volume
+    - int weight
+
+    .. constructors ..
+    + Bin()
+    + Bin(long id, int volume, int weight)
+
+    .. getters/setters ..
+    + long getId()
+    + void setId(long id)
+    + int getVolume()
+    + void setVolume(int volume)
+    + int getWeight()
+    + void setWeight(int weight)
+}
+
+class Item {
+    .. properties ..
+    - long id
+    - int size
+    - Bin bin
+
+    .. constructors ..
+    + Item()
+    + Item(long id, int size, Bin bin)
+
+    .. getters/setters ..
+    + int getSize()
+    + void setSize(int size)
+    + Bin getBin()
+    + void setBin(Bin bin)
+    + int getId()
+    + void setId(int id)
+}
+
+class PackingSolution {
+    .. properties ..
+    - HardSoftScore score
+    - List<Bin> listBins
+    - List<Item> listItems
+
+    .. constructors ..
+    + packingSolution()
+    + PackingSolution(HardSoftScore score,
+      List<Bin> listBins, List<Item> listItems)
+
+    .. getters/setters ..
+   + HardSoftScore getScore()
+   + void setScore(HardSoftScore score)
+   + List<Bin> getListBins()
+   + void setListBins(List<Bin> listBins)
+   + List<Item> getListItems()
+   + void setListItems(List<Item> listItems)
+}
+
+note top of Item
+    @PlanningEntity
+end note
+
+note bottom of PackingSolution
+    @PlanningSolution
+end note
+
+Bin "1" <--left-- "*" Item: binReference
+note top on link
+    @PlanningVariable
+end note
+
+Bin "*" <.. "1" PackingSolution: binList
+Item "*" <.. "1" PackingSolution: itemList
+
+@enduml

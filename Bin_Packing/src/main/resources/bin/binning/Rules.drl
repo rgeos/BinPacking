@@ -1,0 +1,42 @@
+package bin.binning;
+
+import java.lang.Number;
+
+// Hard constraints - these rules CANNOT be broken
+
+rule "HardConstraintVolume"
+/*
+ * The total size of all items in that go in one bin
+ * cannot be bigger than the volume of that specific bin.
+ */
+    dialect "mvel"
+    when
+        // we have a bin with a certain volume
+        $bin: Bin($volume: volume)
+        
+        // sum up the sizes of each item in the bin
+        Number($totalVolume: intValue() > $volume) from accumulate (Item(bin == $bin, $size: size), sum($size))
+    then
+        // the sum of all sizes (totalVolume) cannot excede the Bin volume
+        scoreHolder.addHardConstraintMatch(kcontext, -($totalVolume - $volume));
+end
+
+
+// Soft constraints - these rules can be broken
+
+rule "SoftConstraintCost"
+/*
+ * Each bin has a certain cost (weight) which needs to be minimized
+ */
+
+    dialect "mvel"
+    when
+        // we have a bin with a certain cost (weight)
+        $bin: Bin($weight: weight)
+        
+        // if there is an item in the bin
+        exists (Item(bin == $bin))
+    then
+        // minimize the cost
+        scoreHolder.addSoftConstraintMatch(kcontext, -$weight);
+end
